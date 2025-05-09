@@ -18,26 +18,26 @@ port (
     carry   : out std_logic;
     overflow: out std_logic
     );
-    end entity;
+end entity;
 
-    architecture behavioral of ULA is
-        signal calc: unsigned(15 downto 0);
+architecture behavioral of ULA is
+    signal calc: unsigned(15 downto 0);
+
+begin
+    calc <= (input_A + input_B) when operation = "000" else                 -- Adicao
+                (input_B - "0000000000000001") when operation = "001" else  -- Decremento
+                (input_A - input_B) when operation = "010" else             -- Subtracao
+                (input_A or input_B) when operation = "100" else            -- Ou lógico
+                (input_A and input_B) when operation = "101" else           -- E lógico
+                (input_A xor input_B) when operation = "110" else           -- Ou exclusivo
+                "0000000000000000";
+
+    result <= calc;
+    zero <= '1' when (calc = "0000000000000000") else '0';
+    negative <= calc(15);
+    carry <= '1' when calc < input_A else '0';
+    overflow <= '1' when (input_A(15) and input_B(15) and not calc(15)) 
+                or (not input_A(15) and not input_B(15) and calc(15)) else 
+                '0';
     
-    begin
-        calc <= (input_A + input_B) when operation = "000" else                 -- Adicao
-                    (input_B - "0000000000000001") when operation = "001" else  -- Decremento
-                    (input_A - input_B) when operation = "010" else             -- Subtracao
-                    (input_A or input_B) when operation = "100" else            -- Ou lógico
-                    (input_A and input_B) when operation = "101" else           -- E lógico
-                    (input_A xor input_B) when operation = "110" else           -- Ou exclusivo
-                    "0000000000000000";
-
-        result <= calc;
-        zero <= '1' when (calc = "0000000000000000") else '0';
-        negative <= calc(15);
-        carry <= '1' when calc < input_A else '0';
-        overflow <= '1' when (input_A(15) and input_B(15) and not calc(15)) 
-                    or (not input_A(15) and not input_B(15) and calc(15)) else 
-                    '0';
-        
-    end behavioral;
+end behavioral;
