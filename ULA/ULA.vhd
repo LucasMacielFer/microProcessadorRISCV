@@ -20,18 +20,20 @@ port (
     architecture arch of ent is
     
         signal A, B, C: std_logic;
+        signal result: unsigned(15 downto 0);
     
     begin
         d0 <= operation(0);
         d1 <= operation(1);
         d2 <= operation(2);
 
-        output_S <= (input_A + input_B) when (not(A) and not(B) and not(C)) else
+        result <= (input_A + input_B) when (not(A) and not(B) and not(C)) else
                     (input_A - input_B) when (not(A) and not(B) and (C)) else
                     (input_A or input_B) when (not(A) and (B) and not(C)) else
                     (input_A and input_B) when (not(A) and (B) and (C)) else
-            
-            
+                    '0000000000000000';
+
+                
 
     
     --ADD
