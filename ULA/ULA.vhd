@@ -1,5 +1,5 @@
 library ieee;
-use ieee.std_logic.all;
+use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 -- João Pedro de Andrade Argenton e Lucas Maciel Ferreira
@@ -36,8 +36,6 @@ begin
     zero <= '1' when (calc = "0000000000000000") else '0';
     negative <= calc(15);
     carry <= '1' when calc < input_A else '0';
-    overflow <= '1' when (input_A(15) and input_B(15) and not calc(15)) 
-                or (not input_A(15) and not input_B(15) and calc(15)) else 
-                '0';
+    overflow <=  (input_A(15) and input_B(15) and not calc(15)) or (not input_A(15) and not input_B(15) and calc(15));
     
 end behavioral;

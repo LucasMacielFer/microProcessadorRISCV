@@ -1,0 +1,7 @@
+v 4
+file . "ULA.vhd" "6a191a0097c6f02939578ddda5527669f9be47e5" "20250514234209.287":
+  entity ula at 1( 0) + 0 on 21;
+  architecture behavioral of ula at 23( 566) + 0 on 22;
+file . "ULA_tb.vhd" "40fca29814cf436a50bb9988db8d8ad0bbe66b84" "20250514234806.191":
+  entity ula_tb at 1( 0) + 0 on 25;
+  architecture testbench of ula_tb at 10( 153) + 0 on 26;

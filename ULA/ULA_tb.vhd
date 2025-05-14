@@ -27,8 +27,8 @@ begin
     process
     begin
         -- Teste de adição
-        input_A <= "0000110011001101";
-        input_B <= "0111001011001101";
+        input_A <= "0000000000000001";
+        input_B <= "0000000000000001";
         operation <= "000"; -- Adição
         wait for 10 ns;
         -- Teste de decremento
@@ -47,23 +47,23 @@ begin
         operation <= "100"; -- 'Ou' lógico
         wait for 10 ns;
         -- Teste de 'e' lógico
-        input_A <= "0000000000000010";  
-        input_B <= "0000000000000011";
+        input_A <= "0000000000000001";  
+        input_B <= "0000000001000011";
         operation <= "101"; -- 'E' lógico
         wait for 10 ns;
         -- Teste de 'ou' exclusivo
-        input_A <= "0000000000010110";
-        input_B <= "0000000000001101";
+        input_A <= "0000000000000110";
+        input_B <= "0000000000000101";
         operation <= "110"; -- 'Ou' exclusivo
         wait for 10 ns;
         -- Teste de overflow
-        input_A <= "0111111111111111"; -- 32767
-        input_B <= "0000000000000001"; -- 1
+        input_A <= "0111111111111111";
+        input_B <= "0000000000000001";
         operation <= "000"; -- Adição
         wait for 10 ns;
         -- Teste de carry
-        input_A <= "1111111111111111"; -- -1
-        input_B <= "0000000000000001"; -- 1
+        input_A <= "1111111111111111";
+        input_B <= "0000000000000001";
         operation <= "000"; -- Adição
         wait for 10 ns;
         -- Teste de zero
@@ -72,9 +72,10 @@ begin
         operation <= "000"; -- Adição
         wait for 10 ns;
         -- Teste de negativo
-        input_A <= "1111111111111111"; -- -1
-        input_B <= "0000000000000000"; -- 0
+        input_A <= "1111111111111100"; -- -1
+        input_B <= "0000000000000001"; -- 0
         operation <= "000"; -- Adição
         wait for 10 ns;
+        wait;
     end process;
 end architecture;
