@@ -2,6 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+-- João Pedro de Andrade Argenton e Lucas Maciel Ferreira
+
 entity reg16bit_tb is
 end entity;
 
