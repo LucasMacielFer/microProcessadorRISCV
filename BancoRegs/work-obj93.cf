@@ -1,7 +1,7 @@
 v 4
-file . "reg16bit_tb.vhd" "5fd1b45dcd1716fd6f782969f39c4fde7e460f29" "20250516182254.736":
-  entity reg16bit_tb at 1( 0) + 0 on 13;
-  architecture testbech of reg16bit_tb at 8( 105) + 0 on 14;
-file . "reg16bit.vhd" "1a323c091db94546c0919e348153c2c2e08f3613" "20250516182137.696":
-  entity reg16bit at 1( 0) + 0 on 11;
-  architecture behavioral of reg16bit at 17( 364) + 0 on 12;
+file . "reg16bit_tb.vhd" "5fd1b45dcd1716fd6f782969f39c4fde7e460f29" "20250516183233.393":
+  entity reg16bit_tb at 1( 0) + 0 on 17;
+  architecture testbech of reg16bit_tb at 8( 105) + 0 on 18;
+file . "reg16bit.vhd" "1a323c091db94546c0919e348153c2c2e08f3613" "20250516183200.869":
+  entity reg16bit at 1( 0) + 0 on 15;
+  architecture behavioral of reg16bit at 17( 364) + 0 on 16;
