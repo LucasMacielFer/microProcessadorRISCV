@@ -14,29 +14,33 @@ architecture testbech of Top_Level_tb is
     signal B_source, A_rst, A_wr_en         : std_logic;                
     signal A_source                         : std_logic_vector(1 downto 0);
     signal operation                        : std_logic_vector(2 downto 0);
+    signal reg_source                       : std_logic;
     signal w_address,r_address              : std_logic_vector(3 downto 0);
     signal immediate                        : unsigned(15 downto 0);
     signal zero, negative, carry, overflow  : std_logic;
-
+    signal reg, regA                               :  unsigned(15 downto 0);
 begin
     uut : entity work.Top_Level
     port map(
-        A_source    : in std_logic_vector(1 downto 0);
-        B_source    : in std_logic;
-        clk         : in std_logic;
-        rst         : in std_logic;
-        A_rst       : in std_logic;
-        wr_en       : in std_logic;
-        A_wr_en     : in std_logic;
-        operation   : in std_logic_vector(2 downto 0);
-        w_address   : in std_logic_vector(3 downto 0);
-        r_address   : in std_logic_vector(3 downto 0);
-        immediate   : in unsigned(15 downto 0);
-        zero        : out std_logic;
-        negative    : out std_logic;
-        carry       : out std_logic;
-        overflow    : out std_logic
-    );
+        A_source    => A_source,
+        B_source    => B_source,
+        Reg_source => reg_source,
+        clk         => clk,
+        rst         => rst,
+        A_rst       => A_rst,
+        wr_en       => wr_en,
+        A_wr_en     => A_wr_en,
+        operation   => operation,
+        w_address   => w_address,
+        r_address   => r_address,
+        immediate   => immediate,
+        zero        => zero,
+        negative    => negative,
+        carry       => carry,
+        overflow    => overflow,
+        reg => reg,
+        regA => regA
+    );       
 
     reset_global: process
     begin
@@ -68,7 +72,40 @@ begin
 
     process
     begin
-        -- Escrever os testes aqui. Explorar todas as possiblidades.
+        wait for period_time;
+            -- Subtrai 10 de 5 
+            -- 5 -> reg 0001, 10 -> reg 0010
+
+            -- Escreve 5 no reg 0001
+            wr_en <= '1';
+            REG_source <= '1';
+            immediate <= to_unsigned(5, 16);
+            w_address <= "0001";
+
+            wait for period_time;
+
+            -- Escreve 10 no reg 0010
+            wr_en <= '1';
+            immediate <= to_unsigned(10, 16);
+            w_address <= "0010";
+
+            wait for period_time;
+
+            -- Carrega 5 no acumulador
+            A_source <= "10";
+            r_address <= "0001"; -- reg
+            A_wr_en <= '1';
+
+            wait for period_time;
+            
+            -- Subtrai 10 (reg 0010)
+            r_address <= "0010";
+            operation <= "001";  
+            A_source <= "00";
+            A_wr_en <= '1';
+ 
+
+
         wait;
     end process;
 end architecture;

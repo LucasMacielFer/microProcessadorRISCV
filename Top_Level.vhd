@@ -8,6 +8,7 @@ entity Top_Level is
     port(
         A_source    : in std_logic_vector(1 downto 0);
         B_source    : in std_logic;
+        REG_source  : in std_logic;
         clk         : in std_logic;
         rst         : in std_logic;
         A_rst       : in std_logic;
@@ -20,13 +21,14 @@ entity Top_Level is
         zero        : out std_logic;
         negative    : out std_logic;
         carry       : out std_logic;
-        overflow    : out std_logic
+        overflow    : out std_logic;
+        reg, regA   : out unsigned(15 downto 0)
     );
 end entity;
 
 architecture structural of Top_Level is
 signal acum_out, acum_in, banco_out, ULA_out: unsigned(15 downto 0);
-signal operando_B                           : unsigned(15 downto 0);
+signal operando_B, reg_in                   : unsigned(15 downto 0);
 signal A_we : std_logic;
 begin
     acumulador : entity work.reg16bit
@@ -45,7 +47,7 @@ begin
         wr_en => wr_en,
         w_address => w_address,
         r_address => r_address,
-        data_in => acum_out,
+        data_in => reg_in,
         data_out => banco_out
     );
 
@@ -63,5 +65,8 @@ begin
 
     acum_in <= ULA_out when A_source = "00" else immediate when A_source = "01" else banco_out;
     operando_B <= banco_out when B_source = '0' else immediate;
+    reg_in <= acum_out when REG_source = '0' else immediate;
+    reg <= banco_out;
+    regA <= acum_out;
 
 end architecture;
