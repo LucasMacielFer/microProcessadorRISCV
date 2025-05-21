@@ -62,7 +62,7 @@ begin
         wait for period_time;
         w_address <= "0001";
         r_address <= "0001";
-        wr_en <= '0';
+        wr_en <= '1';
         data_in <= "0000000000001010";
         wait for period_time;
         w_address <= "1001";
@@ -71,7 +71,7 @@ begin
         data_in <= "0000000000000010";
         wait for period_time;
         w_address <= "0001";
-        r_address <= "0000";
+        r_address <= "1010";
         wr_en <= '0';
         data_in <= "1111111111111111";
         wait;
