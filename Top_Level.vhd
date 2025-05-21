@@ -22,7 +22,7 @@ entity Top_Level is
         negative    : out std_logic;
         carry       : out std_logic;
         overflow    : out std_logic;
-        reg, regA   : out unsigned(15 downto 0)
+        reg, regA   : out unsigned(15 downto 0) -- Apenas para TESTE
     );
 end entity;
 
