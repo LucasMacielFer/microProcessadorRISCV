@@ -25,7 +25,7 @@ architecture behavioral of ULA is
 
 begin
     calc <= (input_A + input_B) when operation = "000" else                 -- Adicao
-                (input_B - "0000000000000001") when operation = "001" else  -- Decremento
+                (input_A - "0000000000000001") when operation = "001" else  -- Decremento
                 (input_A - input_B) when operation = "010" else             -- Subtracao
                 (input_A or input_B) when operation = "100" else            -- Ou lógico
                 (input_A and input_B) when operation = "101" else           -- E lógico
