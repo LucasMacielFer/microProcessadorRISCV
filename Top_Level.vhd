@@ -27,9 +27,8 @@ entity Top_Level is
 end entity;
 
 architecture structural of Top_Level is
-signal acum_out, acum_in, banco_out, ULA_out: unsigned(15 downto 0);
-signal operando_B, reg_in                   : unsigned(15 downto 0);
-signal A_we : std_logic;
+    signal acum_out, acum_in, banco_out, ULA_out: unsigned(15 downto 0);
+    signal operando_B, reg_in                   : unsigned(15 downto 0);
 begin
     acumulador : entity work.reg16bit
     port map(
@@ -63,10 +62,10 @@ begin
         overflow => overflow
     );
 
-    acum_in <= ULA_out when A_source = "00" else immediate when A_source = "01" else banco_out;
-    operando_B <= banco_out when B_source = '0' else immediate;
-    reg_in <= acum_out when REG_source = '0' else immediate;
-    reg <= banco_out;
-    regA <= acum_out;
+    acum_in     <= ULA_out when A_source = "00" else immediate when A_source = "01" else banco_out;
+    operando_B  <= banco_out when B_source = '0' else immediate;
+    reg_in      <= acum_out when REG_source = '0' else immediate;
+    reg         <= banco_out;
+    regA        <= acum_out;
 
 end architecture;
