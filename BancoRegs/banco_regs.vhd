@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 -- João Pedro de Andrade Argenton e Lucas Maciel Ferreira
 
-entity Banco_regs is
+entity banco_regs is
     port (
         clk         : in std_logic;
         rst         : in std_logic;
@@ -16,7 +16,7 @@ entity Banco_regs is
     );
 end entity;
 
-architecture structural of Banco_regs is
+architecture structural of banco_regs is
     signal we0, we1, we2, we3, we4, we5, we6, we7, we8, we9 : std_logic;
     signal registrador_0: unsigned(15 downto 0);
     signal registrador_1: unsigned(15 downto 0);

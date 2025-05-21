@@ -24,7 +24,7 @@ begin
     port map(
         A_source    => A_source,
         B_source    => B_source,
-        Reg_source => reg_source,
+        Reg_source  => reg_source,
         clk         => clk,
         rst         => rst,
         A_rst       => A_rst,
@@ -38,8 +38,8 @@ begin
         negative    => negative,
         carry       => carry,
         overflow    => overflow,
-        reg => reg,
-        regA => regA
+        reg         => reg,
+        regA        => regA
     );       
 
     reset_global: process

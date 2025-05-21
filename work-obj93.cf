@@ -1,4 +1,7 @@
 v 4
+file . "BancoRegs/banco_regs_tb.vhd" "82cfab968eca6f5d63c4bc457cc6c1cd59871362" "20250521190330.528":
+  entity banco_regs_tb at 1( 0) + 0 on 45;
+  architecture testbench of banco_regs_tb at 10( 167) + 0 on 46;
 file . "Top_Level_tb.vhd" "486ccaa36a22359d46c5e2f9772d26913810a34e" "20250521183638.807":
   entity top_level_tb at 1( 0) + 0 on 41;
   architecture testbech of top_level_tb at 10( 166) + 0 on 42;
@@ -11,6 +14,6 @@ file . "BancoRegs/reg16bit.vhd" "1a323c091db94546c0919e348153c2c2e08f3613" "2025
 file . "ULA/ULA.vhd" "052a7d657f970bfcfc2773256edc4bb070e96f82" "20250521141322.101":
   entity ula at 1( 0) + 0 on 11;
   architecture behavioral of ula at 23( 566) + 0 on 12;
-file . "BancoRegs/banco_regs.vhd" "4c379f702204d9bdf46a5c064fb34e526ce83fb6" "20250521141516.107":
-  entity banco_regs at 1( 0) + 0 on 15;
-  architecture structural of banco_regs at 19( 496) + 0 on 16;
+file . "BancoRegs/banco_regs.vhd" "a406f1b204117da8cbfb63f3a64a62235477a40b" "20250521185950.147":
+  entity banco_regs at 1( 0) + 0 on 43;
+  architecture structural of banco_regs at 19( 496) + 0 on 44;
