@@ -83,60 +83,66 @@ begin
     process
     begin
         wait for period_time;
-        -- Escreve valor 10 no registrador 1
+        wait for period_time;
+        -- Escreve valor 10 no registrador 2
         A_source   <= "01";
         B_source   <= '0';  
         REG_source <= '1';  
         wr_en      <= '1';
-        A_wr_en    <= '1';
-        operation  <= "001"; -- sum
-        w_address  <= "0001";
+        A_wr_en    <= '0';
+        operation  <= "000"; 
+        w_address  <= "0010";
         r_address  <= "0001";
         immediate  <= to_unsigned(10, 16);
         wait for period_time;
 
-        wr_en      <= '0';
-        A_wr_en    <= '0';
-        wait for period_time;
-
         -- Escreve valor 20 no registrador 4
-        REG_source <= '1';
-        wr_en      <= '1';
-        A_wr_en    <= '0';
-        w_address  <= "0100";
-        immediate  <= to_unsigned(21, 16);
-        wait for period_time;
-
-        wr_en      <= '0';
-        wait for period_time;
-
-        -- Carrega valor do registrador 4 no acumulador
-        A_source   <= "10"; 
-        r_address  <= "0100";
-        A_wr_en    <= '1';
-        wait for period_time;
-
-        A_wr_en    <= '0';
-        wait for period_time;
-
-        -- Subtrai registrador 1 do acumulador
-        A_source   <= "00"; 
+        A_source   <= "10";
         B_source   <= '0';  
-        r_address  <= "0001";
-        operation  <= "010"; -- sub
-        A_wr_en    <= '1';
-        wait for period_time;
-
-        A_wr_en    <= '0';
-        wait for period_time;
-
-        -- Guarda acumulador no registrador 3
-        REG_source <= '0'; 
+        REG_source <= '1';  
         wr_en      <= '1';
-        w_address  <= "0011";
+        A_wr_en    <= '0';
+        operation  <= "000"; 
+        w_address  <= "0100";
+        r_address  <= "0001";
+        immediate  <= to_unsigned(20, 16);
         wait for period_time;
 
+        -- Carrega reg 2 no A
+        A_source   <= "10";
+        B_source   <= '0';  
+        REG_source <= '1';  
         wr_en      <= '0';
+        A_wr_en    <= '1';
+        operation  <= "000"; -- sum
+        w_address  <= "0001";
+        r_address  <= "0010";
+        immediate  <= to_unsigned(10, 16);
+        wait for period_time;
+
+        -- Soma A e reg 4 e guarda no A
+        A_source   <= "00";
+        B_source   <= '0';  
+        REG_source <= '1';  
+        wr_en      <= '0';
+        A_wr_en    <= '1';
+        operation  <= "000"; -- sum
+        w_address  <= "0001";
+        r_address  <= "0100";
+        immediate  <= to_unsigned(10, 16);
+        wait for period_time;
+
+        A_source   <= "00";
+        B_source   <= '0';  
+        REG_source <= '0';  
+        wr_en      <= '0';
+        A_wr_en    <= '0';
+        operation  <= "000"; -- sum
+        w_address  <= "0000";
+        r_address  <= "0000";
+        immediate  <= to_unsigned(0, 16);
+        wait for period_time;
+
         wait;
 
     end process;

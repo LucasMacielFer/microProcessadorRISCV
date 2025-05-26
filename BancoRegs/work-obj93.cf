@@ -1,13 +1,13 @@
 v 4
-file . "banco_regs.vhd" "a406f1b204117da8cbfb63f3a64a62235477a40b" "20250521191916.469":
-  entity banco_regs at 1( 0) + 0 on 23;
-  architecture structural of banco_regs at 19( 496) + 0 on 24;
-file . "reg16bit.vhd" "1a323c091db94546c0919e348153c2c2e08f3613" "20250516183200.869":
-  entity reg16bit at 1( 0) + 0 on 15;
-  architecture behavioral of reg16bit at 17( 364) + 0 on 16;
 file . "reg16bit_tb.vhd" "5fd1b45dcd1716fd6f782969f39c4fde7e460f29" "20250516183233.393":
   entity reg16bit_tb at 1( 0) + 0 on 17;
   architecture testbech of reg16bit_tb at 8( 105) + 0 on 18;
-file . "banco_regs_tb.vhd" "9c3455d332076b8b9d51eb1861ab59f4be2ef9f5" "20250521192352.470":
-  entity banco_regs_tb at 1( 0) + 0 on 27;
-  architecture testbench of banco_regs_tb at 10( 167) + 0 on 28;
+file . "banco_regs_tb.vhd" "e7d7f2a806857e12333cbdfdd3657ccbfbfe7e86" "20250523182201.208":
+  entity banco_regs_tb at 1( 0) + 0 on 39;
+  architecture testbench of banco_regs_tb at 10( 176) + 0 on 40;
+file . ".\reg16bit.vhd" "378f2ce03c0a2fe8aa1874641746dadd6e7057b1" "20250523182026.688":
+  entity reg16bit at 1( 0) + 0 on 33;
+  architecture behavioral of reg16bit at 17( 380) + 0 on 34;
+file . "banco_regs.vhd" "a6d0b107afde6fc7f2552eccd6df90d211e0183b" "20250523182114.494":
+  entity banco_regs at 1( 0) + 0 on 37;
+  architecture structural of banco_regs at 19( 514) + 0 on 38;

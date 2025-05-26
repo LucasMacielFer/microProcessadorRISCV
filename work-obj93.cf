@@ -1,16 +1,16 @@
 v 4
-file . "BancoRegs/banco_regs.vhd" "a406f1b204117da8cbfb63f3a64a62235477a40b" "20250521205153.485":
-  entity banco_regs at 1( 0) + 0 on 35;
-  architecture structural of banco_regs at 19( 496) + 0 on 36;
-file . "Top_Level_tb.vhd" "bf85707b287f0093a6297b92222cb9aaf4db0392" "20250521214919.929":
-  entity top_level_tb at 1( 0) + 0 on 57;
-  architecture testbech of top_level_tb at 8( 106) + 0 on 58;
-file . "./BancoRegs/reg16bit.vhd" "1a323c091db94546c0919e348153c2c2e08f3613" "20250521202049.632":
-  entity reg16bit at 1( 0) + 0 on 11;
-  architecture behavioral of reg16bit at 17( 364) + 0 on 12;
-file . "Top_Level.vhd" "55f8038b80247afb4af79924965d9ee2d88a6c13" "20250521214919.928":
-  entity top_level at 1( 0) + 0 on 55;
-  architecture structural of top_level at 29( 917) + 0 on 56;
-file . "ULA/ULA.vhd" "052a7d657f970bfcfc2773256edc4bb070e96f82" "20250521205115.325":
-  entity ula at 1( 0) + 0 on 33;
-  architecture behavioral of ula at 23( 566) + 0 on 34;
+file . "BancoRegs/reg16bit.vhd" "378f2ce03c0a2fe8aa1874641746dadd6e7057b1" "20250523182413.101":
+  entity reg16bit at 1( 0) + 0 on 59;
+  architecture behavioral of reg16bit at 17( 380) + 0 on 60;
+file . "ULA/ULA.vhd" "34511499e2e2e75720f2cabbf80637c9585b242e" "20250523182606.487":
+  entity ula at 1( 0) + 0 on 63;
+  architecture behavioral of ula at 23( 588) + 0 on 64;
+file . "Top_Level.vhd" "d94d97f9ee76b4ed0042ca9624e8e977f7a81eb3" "20250523184927.830":
+  entity top_level at 1( 0) + 0 on 75;
+  architecture structural of top_level at 29( 945) + 0 on 76;
+file . "Top_Level_tb.vhd" "e7a03c3a222e9dd29850e0136501546a3931686a" "20250523185855.893":
+  entity top_level_tb at 1( 0) + 0 on 83;
+  architecture testbech of top_level_tb at 8( 113) + 0 on 84;
+file . "BancoRegs/banco_regs.vhd" "9a1680cbe2fa0f0006644485f18e0fddb38eb957" "20250523184904.168":
+  entity banco_regs at 1( 0) + 0 on 73;
+  architecture structural of banco_regs at 19( 514) + 0 on 74;

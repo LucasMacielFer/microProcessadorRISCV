@@ -120,16 +120,16 @@ begin
         data_out => registrador_9
     );
 
-    we0 <= '1' when w_address = "0000" else '0';
-    we1 <= '1' when w_address = "0001" else '0';
-    we2 <= '1' when w_address = "0010" else '0';
-    we3 <= '1' when w_address = "0011" else '0';
-    we4 <= '1' when w_address = "0100" else '0';
-    we5 <= '1' when w_address = "0101" else '0';
-    we6 <= '1' when w_address = "0110" else '0';
-    we7 <= '1' when w_address = "0111" else '0';
-    we8 <= '1' when w_address = "1000" else '0';
-    we9 <= '1' when w_address = "1001" else '0';
+    we0 <= '1' when (w_address = "0000" and wr_en = '1') else '0';
+    we1 <= '1' when (w_address = "0001" and wr_en = '1') else '0';
+    we2 <= '1' when (w_address = "0010" and wr_en = '1') else '0';
+    we3 <= '1' when (w_address = "0011" and wr_en = '1') else '0';
+    we4 <= '1' when (w_address = "0100" and wr_en = '1') else '0';
+    we5 <= '1' when (w_address = "0101" and wr_en = '1') else '0';
+    we6 <= '1' when (w_address = "0110" and wr_en = '1') else '0';
+    we7 <= '1' when (w_address = "0111" and wr_en = '1') else '0';
+    we8 <= '1' when (w_address = "1000" and wr_en = '1') else '0';
+    we9 <= '1' when (w_address = "1001" and wr_en = '1') else '0';
 
     data_out <= registrador_0 when r_address = "0000" else
                 registrador_1 when r_address = "0001" else
