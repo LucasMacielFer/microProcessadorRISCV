@@ -21,6 +21,7 @@ architecture testbech of Top_Level_tb is
     -- o problema nao foi resolvido após adicionar essa passagem, porém ficamos com medo de tirar e qubrar 
     -- a simulação no futuro 
     attribute keep : boolean;
+    attribute keep of clk        : signal is true;
     attribute keep of A_source   : signal is true;
     attribute keep of operation  : signal is true;
     attribute keep of w_address  : signal is true;

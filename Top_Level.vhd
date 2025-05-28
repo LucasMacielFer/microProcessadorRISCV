@@ -29,7 +29,40 @@ end entity;
 architecture structural of Top_Level is
     signal acum_out, acum_in, banco_out, ULA_out: unsigned(15 downto 0);
     signal operando_B, reg_in                   : unsigned(15 downto 0);
+    signal saidaPC                              : unsigned(6 downto 0);
+    signal entradaPC                            : unsigned(6 downto 0) := "0000000";
+    signal instruction                          : unsigned(13 downto 0);
+    signal we_PC                                : std_logic := '0';
 begin
+    Estado : entity work.TFF
+    port map(
+        clk => clk,
+        rst => rst,
+        data_out => we_PC
+    );
+
+    ROM : entity work.ROM
+    port map(
+        clk => clk,
+        address => saidaPC,
+        data_out => instruction
+    );
+
+    PC : entity work.reg1bit
+    port map(
+        clk => clk,
+        rst => rst,
+        wr_en => we_PC,
+        data_in => entradaPC,
+        data_out => saidaPC
+    );
+
+    soma1 : entity work.soma1
+    port map(
+        data_in => saidaPC,
+        data_out => entradaPC
+    );
+
     acumulador : entity work.reg16bit
     port map(
         clk => clk,
