@@ -15,15 +15,12 @@ end entity;
 architecture behavioral of ROM is
     type mem is array (0 to 127) of unsigned(13 downto 0);
     constant content : mem := (
-        0 => "11111111111111", -- NOP
-        1 => "00000000000001", -- ADDI x1, x0, 1
-        2 => "00000000000010", -- ADDI x2, x0, 2
-        3 => "00000000000100", -- ADDI x4, x0, 4
-        4 => "00000000001000", -- ADDI x8, x0, 8
-        5 => "00000000101000", -- ADDI x8, x0, 16
-        6 => "00000001010000", -- ADDI x8, x0, 32
-        7 => "00000101010000", -- ADDI x8, x0, 64
-        others => (others => '0') -- Fill the rest with zeros
+        0 => "00101000001010",
+        1 => "00000011111001",
+        2 => "00000000000001",
+        3 => "00000010000011",
+        4 => "00000000001111",
+        others => (others => '0')
     );
 begin
     process(clk)

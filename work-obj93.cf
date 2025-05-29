@@ -1,28 +1,31 @@
 v 4
+file . ".\UC\Control_Unit.vhd" "7cb558a5aaec60e84c17e481c7cdf5e173b794b2" "20250529015537.584":
+  entity control_unit at 1( 0) + 0 on 165;
+  architecture behavioral of control_unit at 18( 566) + 0 on 166;
 file . "PC/soma1.vhd" "57270600b6395029152b487e5a94948ab322c9d4" "20250528184559.664":
   entity soma1 at 1( 0) + 0 on 99;
   architecture behavioral of soma1 at 14( 276) + 0 on 100;
-file . "PC/TFF.vhd" "b66508b5091735c199133fa1ff0c82193e6240f4" "20250528192716.867":
-  entity tff at 1( 0) + 0 on 127;
-  architecture behavioral of tff at 16( 287) + 0 on 128;
+file . "PC/TFF.vhd" "c54068c6717db0562efcb90124cb185d8c11f215" "20250528235652.073":
+  entity tff at 1( 0) + 0 on 133;
+  architecture behavioral of tff at 16( 287) + 0 on 134;
 file . "BancoRegs/reg16bit.vhd" "378f2ce03c0a2fe8aa1874641746dadd6e7057b1" "20250523182413.101":
   entity reg16bit at 1( 0) + 0 on 59;
   architecture behavioral of reg16bit at 17( 380) + 0 on 60;
-file . "ULA/ULA.vhd" "34511499e2e2e75720f2cabbf80637c9585b242e" "20250523182606.487":
-  entity ula at 1( 0) + 0 on 63;
-  architecture behavioral of ula at 23( 588) + 0 on 64;
-file . "Top_Level.vhd" "ec656f0312652fb65f249d9ad9c7aca06204bfcb" "20250528192720.605":
-  entity top_level at 1( 0) + 0 on 129;
-  architecture structural of top_level at 29( 945) + 0 on 130;
-file . "Top_Level_tb.vhd" "78d0134a8937e65152307c6483b6f1365510596f" "20250528192745.263":
-  entity top_level_tb at 1( 0) + 0 on 131;
-  architecture testbech of top_level_tb at 8( 113) + 0 on 132;
+file . "ULA/ULA.vhd" "241fa99648a72ebd41be30635b78e7b78820700c" "20250529004254.428":
+  entity ula at 1( 0) + 0 on 145;
+  architecture behavioral of ula at 23( 588) + 0 on 146;
+file . "Top_Level.vhd" "e76b799aaa59eae5ef91980cbb83a14f591b9c01" "20250529021259.856":
+  entity top_level at 1( 0) + 0 on 177;
+  architecture structural of top_level at 19( 453) + 0 on 178;
+file . "Top_Level_tb.vhd" "29d26c79465c1b72ef76575d5386c2fe662e537b" "20250529021327.461":
+  entity top_level_tb at 1( 0) + 0 on 179;
+  architecture testbech of top_level_tb at 8( 113) + 0 on 180;
 file . "BancoRegs/banco_regs.vhd" "9a1680cbe2fa0f0006644485f18e0fddb38eb957" "20250523184904.168":
   entity banco_regs at 1( 0) + 0 on 73;
   architecture structural of banco_regs at 19( 514) + 0 on 74;
-file . "Memo/ROM.vhd" "c9de575870d30920a2d632dc06c5ad8b0ffd69b2" "20250528191206.235":
-  entity rom at 1( 0) + 0 on 119;
-  architecture behavioral of rom at 15( 308) + 0 on 120;
+file . "Memo/ROM.vhd" "494effddc53a46cf41ddafc1e1941f1292f8cbce" "20250529020131.305":
+  entity rom at 1( 0) + 0 on 171;
+  architecture behavioral of rom at 15( 308) + 0 on 172;
 file . "PC/TFF_tb.vhd" "cb51488aa4c2b0e1429e8089588c0699a311fc4e" "20250528183522.394":
   entity tff_tb at 1( 0) + 0 on 93;
   architecture testbech of tff_tb at 10( 169) + 0 on 94;

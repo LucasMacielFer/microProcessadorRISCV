@@ -9,48 +9,20 @@ architecture testbech of Top_Level_tb is
     signal period_time                      : time      := 100 ns;
     signal finished                         : std_logic := '0';
     signal clk, rst, wr_en                  : std_logic;
-    signal B_source, A_rst, A_wr_en         : std_logic;                
-    signal A_source                         : std_logic_vector(1 downto 0);
-    signal operation                        : std_logic_vector(2 downto 0);
-    signal reg_source                       : std_logic;
-    signal w_address, r_address             : std_logic_vector(3 downto 0);
-    signal immediate                        : unsigned(15 downto 0);
     signal zero, negative, carry, overflow  : std_logic;
-    signal reg, regA                        : unsigned(15 downto 0);
-    -- os vetores e unsigned nao apareciam no gtkwave, encontramos essa solução online
-    -- o problema nao foi resolvido após adicionar essa passagem, porém ficamos com medo de tirar e qubrar 
-    -- a simulação no futuro 
-    attribute keep : boolean;
-    attribute keep of clk        : signal is true;
-    attribute keep of A_source   : signal is true;
-    attribute keep of operation  : signal is true;
-    attribute keep of w_address  : signal is true;
-    attribute keep of r_address  : signal is true;
-    attribute keep of immediate  : signal is true;
-    attribute keep of reg        : signal is true;
-    attribute keep of regA       : signal is true;
+    signal A_rst                            : std_logic;
+
 
 begin
     uut : entity work.Top_Level
     port map(
-        A_source    => A_source,
-        B_source    => B_source,
-        Reg_source  => reg_source,
         clk         => clk,
         rst         => rst,
         A_rst       => A_rst,
-        wr_en       => wr_en,
-        A_wr_en     => A_wr_en,
-        operation   => operation,
-        w_address   => w_address,
-        r_address   => r_address,
-        immediate   => immediate,
         zero        => zero,
         negative    => negative,
         carry       => carry,
-        overflow    => overflow,
-        reg         => reg,
-        regA        => regA
+        overflow    => overflow
     );       
 
     reset_global: process
@@ -80,71 +52,4 @@ begin
         end loop;
         wait;
     end process clk_proc;
-
-    process
-    begin
-        wait for period_time;
-        wait for period_time;
-        -- Escreve valor 10 no registrador 2
-        A_source   <= "01";
-        B_source   <= '0';  
-        REG_source <= '1';  
-        wr_en      <= '1';
-        A_wr_en    <= '0';
-        operation  <= "000"; 
-        w_address  <= "0010";
-        r_address  <= "0001";
-        immediate  <= to_unsigned(10, 16);
-        wait for period_time;
-
-        -- Escreve valor 20 no registrador 4
-        A_source   <= "10";
-        B_source   <= '0';  
-        REG_source <= '1';  
-        wr_en      <= '1';
-        A_wr_en    <= '0';
-        operation  <= "000"; 
-        w_address  <= "0100";
-        r_address  <= "0001";
-        immediate  <= to_unsigned(20, 16);
-        wait for period_time;
-
-        -- Carrega reg 2 no A
-        A_source   <= "10";
-        B_source   <= '0';  
-        REG_source <= '1';  
-        wr_en      <= '0';
-        A_wr_en    <= '1';
-        operation  <= "000"; -- sum
-        w_address  <= "0001";
-        r_address  <= "0010";
-        immediate  <= to_unsigned(10, 16);
-        wait for period_time;
-
-        -- Soma A e reg 4 e guarda no A
-        A_source   <= "00";
-        B_source   <= '0';  
-        REG_source <= '1';  
-        wr_en      <= '0';
-        A_wr_en    <= '1';
-        operation  <= "000"; -- sum
-        w_address  <= "0001";
-        r_address  <= "0100";
-        immediate  <= to_unsigned(10, 16);
-        wait for period_time;
-
-        A_source   <= "00";
-        B_source   <= '0';  
-        REG_source <= '0';  
-        wr_en      <= '0';
-        A_wr_en    <= '0';
-        operation  <= "000"; -- sum
-        w_address  <= "0000";
-        r_address  <= "0000";
-        immediate  <= to_unsigned(0, 16);
-        wait for period_time;
-
-        wait;
-
-    end process;
 end architecture;

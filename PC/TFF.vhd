@@ -14,7 +14,7 @@ entity TFF is
 end entity;
 
 architecture behavioral of TFF is
-    signal toggle: std_logic := '1';
+    signal toggle: std_logic := '0';
 begin
     process(clk)
     begin

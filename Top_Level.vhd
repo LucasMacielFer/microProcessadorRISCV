@@ -6,45 +6,56 @@ use ieee.numeric_std.all;
 
 entity Top_Level is
     port(
-        A_source    : in std_logic_vector(1 downto 0);
-        B_source    : in std_logic;
-        REG_source  : in std_logic;
         clk         : in std_logic;
         rst         : in std_logic;
         A_rst       : in std_logic;
-        wr_en       : in std_logic;
-        A_wr_en     : in std_logic;
-        operation   : in std_logic_vector(2 downto 0);
-        w_address   : in std_logic_vector(3 downto 0);
-        r_address   : in std_logic_vector(3 downto 0);
-        immediate   : in unsigned(15 downto 0);
         zero        : out std_logic;
         negative    : out std_logic;
         carry       : out std_logic;
-        overflow    : out std_logic;
-        reg, regA   : out unsigned(15 downto 0) -- Apenas para TESTE
+        overflow    : out std_logic
     );
 end entity;
 
 architecture structural of Top_Level is
+    signal immediate                            : unsigned(15 downto 0);
     signal acum_out, acum_in, banco_out, ULA_out: unsigned(15 downto 0);
+    signal w_address, r_address                 : std_logic_vector(3 downto 0);
     signal operando_B, reg_in                   : unsigned(15 downto 0);
-    signal saidaPC                              : unsigned(6 downto 0);
-    signal entradaPC                            : unsigned(6 downto 0) := "0000000";
+    signal PC_out                               : unsigned(6 downto 0);
+    signal PC_in, sum_out                       : unsigned(6 downto 0);
     signal instruction                          : unsigned(13 downto 0);
-    signal we_PC                                : std_logic := '0';
+    signal muxPC, muxAdd, muxB, muxR            : std_logic;
+    signal muxA                                 : std_logic_vector(1 downto 0);
+    signal we0_R, we0_A, imm_ctrl, we_R, we_A   : std_logic;
+    signal we_PC, state_out                     : std_logic;
+    signal operation                            : std_logic_vector(2 downto 0);     
+
 begin
+    UC : entity work.Control_Unit
+    port map(
+        instruction => instruction,
+        muxPC => muxPC,
+        muxAdd => muxAdd,
+        muxB => muxB,
+        muxR => muxR,
+        muxA => muxA,
+        we_R => we0_R,
+        we_A => we0_A,
+        operation => operation,
+        imm => imm_ctrl
+    );
+
     Estado : entity work.TFF
     port map(
         clk => clk,
         rst => rst,
-        data_out => we_PC
+        data_out => state_out
     );
 
     ROM : entity work.ROM
     port map(
         clk => clk,
-        address => saidaPC,
+        address => PC_out,
         data_out => instruction
     );
 
@@ -53,21 +64,21 @@ begin
         clk => clk,
         rst => rst,
         wr_en => we_PC,
-        data_in => entradaPC,
-        data_out => saidaPC
+        data_in => PC_in,
+        data_out => PC_out
     );
 
     soma1 : entity work.soma1
     port map(
-        data_in => saidaPC,
-        data_out => entradaPC
+        data_in => PC_out,
+        data_out => sum_out
     );
 
     acumulador : entity work.reg16bit
     port map(
         clk => clk,
         rst => A_rst,
-        wr_en => A_wr_en,
+        wr_en => we_A,
         data_in => acum_in,
         data_out => acum_out
     );
@@ -76,7 +87,7 @@ begin
     port map(
         clk => clk,
         rst => rst,
-        wr_en => wr_en,
+        wr_en => we_R,
         w_address => w_address,
         r_address => r_address,
         data_in => reg_in,
@@ -95,10 +106,16 @@ begin
         overflow => overflow
     );
 
-    acum_in     <= ULA_out when A_source = "00" else immediate when A_source = "01" else banco_out;
-    operando_B  <= banco_out when B_source = '0' else immediate;
-    reg_in      <= acum_out when REG_source = '0' else immediate;
-    reg         <= banco_out;
-    regA        <= acum_out;
+    immediate   <= (5 downto 0 => instruction(13)) & instruction(13 downto 4) when imm_ctrl = '0' else
+                    (9 downto 0 => instruction(13)) & instruction(13 downto 8);
+    we_pc       <= not state_out; 
+    acum_in     <= ULA_out when muxA = "00" else immediate when muxA = "01" else banco_out;
+    operando_B  <= banco_out when muxB = '0' else immediate;
+    reg_in      <= acum_out when muxR = '0' else immediate;
+    PC_in       <= sum_out when muxPC = '0' else instruction(13 downto 7);
+    w_address   <= std_logic_vector(instruction(10 downto 7)) when muxAdd = '0' else std_logic_vector(instruction(7 downto 4));
+    r_address   <= std_logic_vector(instruction(10 downto 7));
+    we_A <= we0_A and not state_out;
+    we_R <= we0_R and not state_out; -- Perguntar para o prof se está certo sexta-feira
 
 end architecture;
