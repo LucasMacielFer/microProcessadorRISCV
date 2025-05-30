@@ -83,6 +83,15 @@ begin
         data_out => acum_out
     );
 
+    -- instruction_reg : entity work.reg14bit
+    -- port map(
+    --     clk     => clk,
+    --     rst     => rst,
+    --     wr_en   
+    --     data_in : in unsigned(13 downto 0);
+    --     data_out: out unsigned(13 downto 0)
+    -- );
+
     banco : entity work.Banco_regs
     port map(
         clk => clk,

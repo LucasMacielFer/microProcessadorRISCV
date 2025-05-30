@@ -8,9 +8,6 @@ file . "PC/soma1.vhd" "57270600b6395029152b487e5a94948ab322c9d4" "20250528184559
 file . "PC/TFF.vhd" "c54068c6717db0562efcb90124cb185d8c11f215" "20250528235652.073":
   entity tff at 1( 0) + 0 on 133;
   architecture behavioral of tff at 16( 287) + 0 on 134;
-file . "BancoRegs/reg16bit.vhd" "378f2ce03c0a2fe8aa1874641746dadd6e7057b1" "20250523182413.101":
-  entity reg16bit at 1( 0) + 0 on 59;
-  architecture behavioral of reg16bit at 17( 380) + 0 on 60;
 file . "ULA/ULA.vhd" "241fa99648a72ebd41be30635b78e7b78820700c" "20250529004254.428":
   entity ula at 1( 0) + 0 on 145;
   architecture behavioral of ula at 23( 588) + 0 on 146;
@@ -35,3 +32,6 @@ file . "PC/reg1bit.vhd" "edc3584ce769b6e9517d75c3fd7b49cf50de8647" "202505281842
 file . "PC/soma1_tb.vhd" "7ab53a51820f73d3a88e34e724868c1852128cc4" "20250528184915.022":
   entity soma1_tb at 1( 0) + 0 on 101;
   architecture testbech of soma1_tb at 10( 171) + 0 on 102;
+file . "BancoRegs/reg14bit.vhd" "2f39326248a05582c9a977ce0889ec12217f1fae" "20250530180053.176":
+  entity reg14bit at 1( 0) + 0 on 183;
+  architecture behavioral of reg14bit at 17( 364) + 0 on 184;
