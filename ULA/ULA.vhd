@@ -35,7 +35,7 @@ begin
             "00000000000000000";
 
     op1 <= input_A(15) & input_A;
-    op2 <= input_A(15) & input_B;
+    op2 <= input_B(15) & input_B;
     result <= calc(15 downto 0);
     zero <= '1' when (calc = "000000000000000000") else '0';
     negative <= calc(15);

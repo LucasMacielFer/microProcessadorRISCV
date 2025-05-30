@@ -23,17 +23,18 @@ architecture structural of Top_Level is
     signal operando_B, reg_in                   : unsigned(15 downto 0);
     signal PC_out                               : unsigned(6 downto 0);
     signal PC_in, sum_out                       : unsigned(6 downto 0);
-    signal instruction                          : unsigned(13 downto 0);
+    signal Reg_instruction, ROM_instruction     : unsigned(13 downto 0);
     signal muxPC, muxAdd, muxB, muxR            : std_logic;
     signal muxA                                 : std_logic_vector(1 downto 0);
     signal we0_R, we0_A, imm_ctrl, we_R, we_A   : std_logic;
-    signal we_PC, state_out                     : std_logic;
-    signal operation                            : std_logic_vector(2 downto 0);     
+    signal we_PC, we_inst_reg                   : std_logic;
+    signal operation                            : std_logic_vector(2 downto 0);  
+    signal state_out                            : unsigned(1 downto 0);  
 
 begin
     UC : entity work.Control_Unit
     port map(
-        instruction => instruction,
+        instruction => Reg_instruction,
         muxPC => muxPC,
         muxAdd => muxAdd,
         muxB => muxB,
@@ -45,18 +46,33 @@ begin
         imm => imm_ctrl
     );
 
-    Estado : entity work.TFF
+    -- Estado : entity work.TFF
+    -- port map(
+    --     clk => clk,
+    --     rst => rst,
+    --     data_out => state_out
+    -- );
+    state_machine : entity work.Maq_estados
     port map(
         clk => clk,
         rst => rst,
-        data_out => state_out
+        estado => state_out
+    );
+
+    instruction_reg : entity work.reg14bit
+    port map(
+        clk     => clk,
+        rst     => rst,
+        wr_en   => we_inst_reg,
+        data_in =>  ROM_instruction,
+        data_out => Reg_instruction
     );
 
     ROM : entity work.ROM
     port map(
         clk => clk,
         address => PC_out,
-        data_out => instruction
+        data_out => ROM_instruction
     );
 
     PC : entity work.reg1bit
@@ -83,15 +99,6 @@ begin
         data_out => acum_out
     );
 
-    -- instruction_reg : entity work.reg14bit
-    -- port map(
-    --     clk     => clk,
-    --     rst     => rst,
-    --     wr_en   
-    --     data_in : in unsigned(13 downto 0);
-    --     data_out: out unsigned(13 downto 0)
-    -- );
-
     banco : entity work.Banco_regs
     port map(
         clk => clk,
@@ -115,16 +122,17 @@ begin
         overflow => overflow
     );
 
-    immediate   <= (5 downto 0 => instruction(13)) & instruction(13 downto 4) when imm_ctrl = '0' else
-                    (9 downto 0 => instruction(13)) & instruction(13 downto 8);
-    we_pc       <= not state_out; 
+    immediate   <= (5 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 4) when imm_ctrl = '0' else
+                (9 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 8);
+    we_pc       <= '1' when state_out = "10" else '0'; 
     acum_in     <= ULA_out when muxA = "00" else immediate when muxA = "01" else banco_out;
     operando_B  <= banco_out when muxB = '0' else immediate;
     reg_in      <= acum_out when muxR = '0' else immediate;
-    PC_in       <= sum_out when muxPC = '0' else instruction(13 downto 7);
-    w_address   <= std_logic_vector(instruction(10 downto 7)) when muxAdd = '0' else std_logic_vector(instruction(7 downto 4));
-    r_address   <= std_logic_vector(instruction(10 downto 7));
-    we_A <= we0_A and not state_out;
-    we_R <= we0_R and not state_out; -- Perguntar para o prof se está certo sexta-feira
+    PC_in       <= sum_out when muxPC = '0' else Reg_instruction(13 downto 7);
+    w_address   <= std_logic_vector(Reg_instruction(10 downto 7)) when muxAdd = '0' else std_logic_vector(Reg_instruction(7 downto 4));
+    r_address   <= std_logic_vector(Reg_instruction(10 downto 7));
+    we_A        <= '1' when (state_out = "01" and (we0_A = '1')) else '0';
+    we_R        <= '1' when (state_out = "01" and (we0_R = '1')) else '0'; 
+    we_inst_reg <= '1' when (state_out = "00") else '0';
 
 end architecture;
