@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 -- João Pedro de Andrade Argenton e Lucas Maciel Ferreira
 
-entity Top_Level is
+entity processador is
     port(
         clk         : in std_logic;
         rst         : in std_logic;
@@ -16,7 +16,7 @@ entity Top_Level is
     );
 end entity;
 
-architecture structural of Top_Level is
+architecture structural of processador is
     signal immediate                            : unsigned(15 downto 0);
     signal acum_out, acum_in, banco_out, ULA_out: unsigned(15 downto 0);
     signal w_address, r_address                 : std_logic_vector(3 downto 0);

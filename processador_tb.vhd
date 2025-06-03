@@ -2,10 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity Top_Level_tb is
+entity processador_tb is
 end entity;
 
-architecture testbech of Top_Level_tb is
+architecture testbech of processador_tb is
     signal period_time                      : time      := 100 ns;
     signal finished                         : std_logic := '0';
     signal clk, rst, wr_en                  : std_logic;
@@ -14,7 +14,7 @@ architecture testbech of Top_Level_tb is
 
 
 begin
-    uut : entity work.Top_Level
+    uut : entity work.processador
     port map(
         clk         => clk,
         rst         => rst,

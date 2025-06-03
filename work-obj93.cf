@@ -1,4 +1,7 @@
 v 4
+file . "processador_tb.vhd" "715f9235493d38c007ccf1e1ada9b7c301757806" "20250603130326.575":
+  entity processador_tb at 1( 0) + 0 on 89;
+  architecture testbech of processador_tb at 8( 115) + 0 on 90;
 file . ".\Top_Level.vhd" "45cb42eb79ec14d119f14ed272226f1ce127537c" "20250531182407.779":
   entity top_level at 1( 0) + 0 on 83;
   architecture structural of top_level at 19( 453) + 0 on 84;
@@ -35,3 +38,6 @@ file . "Top_Level_tb.vhd" "29d26c79465c1b72ef76575d5386c2fe662e537b" "2025053118
 file . "UC/Control_Unit.vhd" "7cb558a5aaec60e84c17e481c7cdf5e173b794b2" "20250531181710.309":
   entity control_unit at 1( 0) + 0 on 59;
   architecture behavioral of control_unit at 18( 566) + 0 on 60;
+file . "processador.vhd" "02e2621947bb0d8025d6baa7c29c55e11d00afdf" "20250603130316.973":
+  entity processador at 1( 0) + 0 on 87;
+  architecture structural of processador at 19( 455) + 0 on 88;
