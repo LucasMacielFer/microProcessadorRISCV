@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 -- João Pedro de Andrade Argenton e Lucas Maciel Ferreira
 
-entity Top_Level is
+entity processador is
     port(
         clk         : in std_logic;
         rst         : in std_logic;
@@ -16,7 +16,7 @@ entity Top_Level is
     );
 end entity;
 
-architecture structural of Top_Level is
+architecture structural of processador is
     signal immediate                            : unsigned(15 downto 0);
     signal acum_out, acum_in, banco_out, ULA_out: unsigned(15 downto 0);
     signal w_address, r_address                 : std_logic_vector(3 downto 0);
@@ -30,6 +30,7 @@ architecture structural of Top_Level is
     signal we_PC, we_inst_reg                   : std_logic;
     signal operation                            : std_logic_vector(2 downto 0);  
     signal state_out                            : unsigned(1 downto 0);  
+    signal first_instr                          : std_logic;  
 
 begin
     UC : entity work.Control_Unit
@@ -52,6 +53,14 @@ begin
     --     rst => rst,
     --     data_out => state_out
     -- );
+
+    first_inst_OSFF : entity work.one_shot_FF
+    port map(
+        clk => state_out(1),
+        rst => rst,
+        data_out => first_instr
+    );
+
     state_machine : entity work.Maq_estados
     port map(
         clk => clk,
@@ -124,15 +133,15 @@ begin
 
     immediate   <= (5 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 4) when imm_ctrl = '0' else
                 (9 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 8);
-    we_pc       <= '1' when state_out = "10" else '0'; 
+    we_pc       <= '1' when (state_out = "00" and first_instr = '1') else '0'; 
     acum_in     <= ULA_out when muxA = "00" else immediate when muxA = "01" else banco_out;
     operando_B  <= banco_out when muxB = '0' else immediate;
     reg_in      <= acum_out when muxR = '0' else immediate;
     PC_in       <= sum_out when muxPC = '0' else Reg_instruction(13 downto 7);
     w_address   <= std_logic_vector(Reg_instruction(10 downto 7)) when muxAdd = '0' else std_logic_vector(Reg_instruction(7 downto 4));
     r_address   <= std_logic_vector(Reg_instruction(10 downto 7));
-    we_A        <= '1' when (state_out = "01" and (we0_A = '1')) else '0';
-    we_R        <= '1' when (state_out = "01" and (we0_R = '1')) else '0'; 
-    we_inst_reg <= '1' when (state_out = "00") else '0';
+    we_A        <= '1' when (state_out = "11" and (we0_A = '1')) else '0';
+    we_R        <= '1' when (state_out = "11" and (we0_R = '1')) else '0'; 
+    we_inst_reg <= '1' when (state_out = "10") else '0';
 
 end architecture;

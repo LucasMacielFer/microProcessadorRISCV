@@ -7,7 +7,6 @@ ghdl -e reg18bit_tb
 ghdl -a BancoRegs/banco_regs_tb.vhd
 ghdl -e banco_regs_tb
 ghdl -r banco_regs_tb --wave=banco_regs_tb.ghw
-
 ghdl -a ULA/ULA.vhd
 ghdl -e ULA
 ghdl -a BancoRegs/reg16bit.vhd
@@ -26,6 +25,8 @@ ghdl -a PC/soma1.vhd
 ghdl -e soma1
 ghdl -a State_Machine/Maq_estados.vhd 
 ghdl -e Maq_estados
+ghdl -a State_Machine/one_shot_FF.vhd
+ghdl -e one_shot_FF
 ghdl -a Top_Level.vhd 
 ghdl -e Top_Level
 ghdl -a Top_Level_tb.vhd 
