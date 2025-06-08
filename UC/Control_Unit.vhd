@@ -11,7 +11,7 @@ entity Control_Unit is
         muxA                        : out std_logic_vector(1 downto 0);
         we_R, we_A                  : out std_logic;
         operation                   : out std_logic_vector(2 downto 0);
-        imm                         : out std_logic;
+        imm                         : out std_logic_vector(1 downto 0);
         jump, bhi, blt              : out std_logic;
         we_flags                    :out std_logic
 
@@ -40,7 +40,7 @@ begin
     we_R <= '1' when (opcode = "0011" or opcode = "1010") else '0';
     operation <= std_logic_vector(funct3) when opcode = "0001" else 
                 "010" when opcode = "1000" else "000";
-    imm <= '1' when opcode = "1010" else '0';
+    imm <= "01" when opcode = "1010" else "10" when opcode = "1111" else "11" when (opcode = "1100" or opcode = "1101") else "00";
 
-    we_flags <= '1' when (opcode ="0001" or opcode = "1000");
+    we_flags <= '1' when (opcode ="0001" or opcode = "1000") else '0';
 end behavioral;

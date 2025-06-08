@@ -9,7 +9,6 @@ architecture testbech of processador_tb is
     signal period_time                      : time      := 100 ns;
     signal finished                         : std_logic := '0';
     signal clk, rst, wr_en                  : std_logic;
-    signal zero, negative, carry, overflow  : std_logic;
     signal A_rst                            : std_logic;
 
 
@@ -18,11 +17,7 @@ begin
     port map(
         clk         => clk,
         rst         => rst,
-        A_rst       => A_rst,
-        zero        => zero,
-        negative    => negative,
-        carry       => carry,
-        overflow    => overflow
+        A_rst       => A_rst
     );       
 
     reset_global: process
@@ -37,7 +32,7 @@ begin
     
     sim_time_proc: process
     begin
-        wait for 10 us;
+        wait for 110 us;
         finished <= '1';
         wait;
     end process sim_time_proc;

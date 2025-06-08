@@ -8,11 +8,7 @@ entity processador is
     port(
         clk         : in std_logic;
         rst         : in std_logic;
-        A_rst       : in std_logic;
-        zero        : out std_logic;
-        negative    : out std_logic;
-        carry       : out std_logic;
-        overflow    : out std_logic
+        A_rst       : in std_logic
     );
 end entity;
 
@@ -24,9 +20,9 @@ architecture structural of processador is
     signal PC_out, delta                                : unsigned(6 downto 0);
     signal PC_in, sum_out                               : unsigned(6 downto 0);
     signal Reg_instruction, ROM_instruction             : unsigned(13 downto 0);
-    signal muxAdd, muxB, muxR                    : std_logic;
-    signal muxA                                         : std_logic_vector(1 downto 0);
-    signal we0_R, we0_A, imm_ctrl, we_R, we_A           : std_logic;
+    signal muxAdd, muxB, muxR                           : std_logic;
+    signal muxA, imm_ctrl                               : std_logic_vector(1 downto 0);
+    signal we0_R, we0_A, we_R, we_A                     : std_logic;
     signal we_PC, we_inst_reg                           : std_logic;
     signal operation                                    : std_logic_vector(2 downto 0);  
     signal state_out                                    : unsigned(1 downto 0);  
@@ -34,6 +30,7 @@ architecture structural of processador is
     signal flag_neg, flag_over, flag_zero, flag_carry   : std_logic;
     signal bhi, blt, jump, branch                       : std_logic;
     signal ULA_flags_wr_en, we_0flags                   : std_logic;
+    signal negative, carry, overflow, zero              : std_logic;
 
 begin
 
@@ -152,7 +149,7 @@ begin
     --                                                < PC | MUX_PC | SOMADORES >                                              --
     -----------------------------------------------------------------------------------------------------------------------------
 
-    PC : entity work.reg1bit
+    PC : entity work.reg7bit
     port map(
         clk => clk,
         rst => rst,
@@ -162,8 +159,8 @@ begin
     );
 
     --PC_in   <= sum_out when muxPC = '0' else Reg_instruction(13 downto 7);
-    branch <= (flag_carry and (not flag_zero) and bhi) or (flag_neg xor flag_over and blt);
-    PC_in <= immediate when (jump = '1') else if delta when branch = '1' else sum_out;
+    branch <= (flag_carry and (not flag_zero) and bhi) or ((flag_neg xor flag_over) and blt);
+    PC_in <= immediate(6 downto 0) when (jump = '1') else delta when branch = '1' else sum_out;
     we_pc       <= '1' when (state_out = "00" and first_instr = '1') else '0'; 
 
     soma1 : entity work.soma1
@@ -174,7 +171,7 @@ begin
 
     somador_sete_bites : entity work.somador7bit
     port map(
-        operando_A => immediate,
+        operando_A => immediate(7 downto 0),
         operando_B => PC_out,
         saida => delta
     );
@@ -231,8 +228,10 @@ begin
     --                                                  < GLOBAL >                                                             --
     -----------------------------------------------------------------------------------------------------------------------------
 
-    immediate   <= (5 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 4) when imm_ctrl = '0' else
-                    (9 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 8);
+    immediate   <= (5 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 4) when imm_ctrl = "00" else
+                    (9 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 8) when imm_ctrl = "01" else
+                    (8 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 7) when imm_ctrl = "10" else
+                    (7 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 6);
 
 end architecture;
 
