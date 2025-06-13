@@ -10,9 +10,11 @@ entity banco_regs is
         rst         : in std_logic;
         wr_en       : in std_logic;
         w_address   : in std_logic_vector(3 downto 0);
-        r_address   : in std_logic_vector(3 downto 0);
+        r_address_1 : in std_logic_vector(3 downto 0);
+        r_address_2 : in std_logic_vector(3 downto 0);
         data_in     : in unsigned(15 downto 0);
-        data_out    : out unsigned(15 downto 0)
+        data_out_1  : out unsigned(15 downto 0);
+        data_out_2  : out unsigned(15 downto 0)
     );
 end entity;
 
@@ -131,16 +133,28 @@ begin
     we8 <= '1' when (w_address = "1000" and wr_en = '1') else '0';
     we9 <= '1' when (w_address = "1001" and wr_en = '1') else '0';
 
-    data_out <= registrador_0 when r_address = "0000" else
-                registrador_1 when r_address = "0001" else
-                registrador_2 when r_address = "0010" else
-                registrador_3 when r_address = "0011" else
-                registrador_4 when r_address = "0100" else
-                registrador_5 when r_address = "0101" else
-                registrador_6 when r_address = "0110" else
-                registrador_7 when r_address = "0111" else
-                registrador_8 when r_address = "1000" else
-                registrador_9 when r_address = "1001" else
+    data_out_1 <= registrador_0 when r_address_1 = "0000" else
+                registrador_1 when r_address_1 = "0001" else
+                registrador_2 when r_address_1 = "0010" else
+                registrador_3 when r_address_1 = "0011" else
+                registrador_4 when r_address_1 = "0100" else
+                registrador_5 when r_address_1 = "0101" else
+                registrador_6 when r_address_1 = "0110" else
+                registrador_7 when r_address_1 = "0111" else
+                registrador_8 when r_address_1 = "1000" else
+                registrador_9 when r_address_1 = "1001" else
+                "0000000000000000";
+
+    data_out_2 <= registrador_0 when r_address_2 = "0000" else
+                registrador_1 when r_address_2 = "0001" else
+                registrador_2 when r_address_2 = "0010" else
+                registrador_3 when r_address_2 = "0011" else
+                registrador_4 when r_address_2 = "0100" else
+                registrador_5 when r_address_2 = "0101" else
+                registrador_6 when r_address_2 = "0110" else
+                registrador_7 when r_address_2 = "0111" else
+                registrador_8 when r_address_2 = "1000" else
+                registrador_9 when r_address_2 = "1001" else
                 "0000000000000000";
                     
 end architecture;
