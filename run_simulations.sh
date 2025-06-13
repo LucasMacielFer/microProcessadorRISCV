@@ -13,6 +13,7 @@ ghdl -a BancoRegs/banco_regs.vhd # Compile banco_regs depois dos regs se ele os 
 
 # -- Memo --
 ghdl -a Memo/ROM.vhd
+ghdl -a Memo/RAM.vhd
 
 # -- PC --
 ghdl -a PC/reg7bit.vhd
