@@ -13,23 +13,23 @@ entity processador is
 end entity;
 
 architecture structural of processador is
-    signal immediate                                    : unsigned(15 downto 0);
-    signal acum_out, acum_in, banco_out, ULA_out        : unsigned(15 downto 0);
-    signal w_address, r_address                         : std_logic_vector(3 downto 0);
+    signal immediate, RAM_out, banco_out_2              : unsigned(15 downto 0);
+    signal acum_out, acum_in, banco_out_1, ULA_out      : unsigned(15 downto 0);
+    signal w_address, r_address, r_address_ram          : std_logic_vector(3 downto 0);
     signal operando_B, reg_in                           : unsigned(15 downto 0);
-    signal PC_out, delta                                : unsigned(6 downto 0);
+    signal PC_out, delta, RAM_addr                      : unsigned(6 downto 0);
     signal PC_in, sum_out                               : unsigned(6 downto 0);
     signal Reg_instruction, ROM_instruction             : unsigned(13 downto 0);
-    signal muxAdd, muxB, muxR                           : std_logic;
-    signal muxA, imm_ctrl                               : std_logic_vector(1 downto 0);
+    signal muxAdd, muxB                                 : std_logic;
+    signal muxA, imm_ctrl, muxR                         : std_logic_vector(1 downto 0);
     signal we0_R, we0_A, we_R, we_A                     : std_logic;
-    signal we_PC, we_inst_reg                           : std_logic;
+    signal we_PC, we_inst_reg, r_addr_mux               : std_logic;
     signal operation                                    : std_logic_vector(2 downto 0);  
     signal state_out                                    : unsigned(1 downto 0);  
-    signal first_instr                                  : std_logic;  
+    signal first_instr, we0_RAM                         : std_logic;  
     signal flag_neg, flag_over, flag_zero, flag_carry   : std_logic;
     signal bhi, blt, jump, branch                       : std_logic;
-    signal ULA_flags_wr_en, we_0flags                   : std_logic;
+    signal ULA_flags_wr_en, we_0flags, we_RAM           : std_logic;
     signal negative, carry, overflow, zero              : std_logic;
 
 begin
@@ -51,7 +51,9 @@ begin
         bhi => bhi,
         blt => blt,
         jump => jump,
-        we_flags => we_0flags
+        we_flags => we_0flags,
+        we_RAM => we0_RAM,
+        r_addr_mux => r_addr_mux
     );
 
 
@@ -145,6 +147,23 @@ begin
         address => PC_out,
         data_out => ROM_instruction
     );
+
+    -----------------------------------------------------------------------------------------------------------------------------
+    --                                                    MEMORIA DE DADOS                                               --
+    -----------------------------------------------------------------------------------------------------------------------------
+
+    RAM : entity work.ram
+    port map(
+        clk => clk,
+        endereco => RAM_addr,
+        wr_en => we_RAM,
+        dado_in => Banco_out_1,
+        dado_out => RAM_out
+    );
+
+    RAM_addr <= Banco_out_2(6 downto 0);
+    we_RAM <= '1' when (state_out = "11" and we0_RAM = '1') else '0';
+
     -----------------------------------------------------------------------------------------------------------------------------
     --                                                < PC | MUX_PC | SOMADORES >                                              --
     -----------------------------------------------------------------------------------------------------------------------------
@@ -187,7 +206,7 @@ begin
         data_out => acum_out
     );
 
-    acum_in     <= ULA_out when muxA = "00" else immediate when muxA = "01" else banco_out;
+    acum_in     <= ULA_out when muxA = "00" else immediate when muxA = "01" else banco_out_1;
     we_A        <= '1' when (state_out = "11" and (we0_A = '1')) else '0';
 
     ------------------------------------------------------------------------------------------------------------------------------
@@ -199,14 +218,17 @@ begin
         rst => rst,
         wr_en => we_R,
         w_address => w_address,
-        r_address => r_address,
+        r_address_1 => r_address,
+        r_address_ram => r_address_ram,
         data_in => reg_in,
-        data_out => banco_out
+        data_out_1 => banco_out_1,
+        data_out_2 => banco_out_2
     );
 
-    reg_in      <= acum_out when muxR = '0' else immediate;
+    reg_in      <= acum_out when muxR = "00" else immediate when muxR = "11" else RAM_out;
     w_address   <= std_logic_vector(Reg_instruction(10 downto 7)) when muxAdd = '0' else std_logic_vector(Reg_instruction(7 downto 4));
-    r_address   <= std_logic_vector(Reg_instruction(10 downto 7));
+    r_address   <= std_logic_vector(Reg_instruction(10 downto 7)) when r_addr_mux = '0' else std_logic_vector(Reg_instruction(13 downto 10));
+    r_address_ram <= std_logic_vector(Reg_instruction(9 downto 6));
 
     -----------------------------------------------------------------------------------------------------------------------------
     --                                                      < ULA >                                                            --
@@ -223,7 +245,7 @@ begin
         overflow => overflow
     );
 
-    operando_B  <= banco_out when muxB = '0' else immediate;
+    operando_B  <= banco_out_1 when muxB = '0' else immediate;
     -----------------------------------------------------------------------------------------------------------------------------
     --                                                  < GLOBAL >                                                             --
     -----------------------------------------------------------------------------------------------------------------------------
@@ -241,8 +263,8 @@ end architecture;
 -- immediate   <= (5 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 4) when imm_ctrl = '0' else
 --             (9 downto 0 => Reg_instruction(13)) & Reg_instruction(13 downto 8);
 -- we_pc       <= '1' when (state_out = "00" and first_instr = '1') else '0'; 
--- acum_in     <= ULA_out when muxA = "00" else immediate when muxA = "01" else banco_out;
--- operando_B  <= banco_out when muxB = '0' else immediate;
+-- acum_in     <= ULA_out when muxA = "00" else immediate when muxA = "01" else banco_out_1;
+-- operando_B  <= banco_out_1 when muxB = '0' else immediate;
 -- reg_in      <= acum_out when muxR = '0' else immediate;
 
 -- w_address   <= std_logic_vector(Reg_instruction(10 downto 7)) when muxAdd = '0' else std_logic_vector(Reg_instruction(7 downto 4));
