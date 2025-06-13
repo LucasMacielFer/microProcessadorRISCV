@@ -219,7 +219,7 @@ begin
         wr_en => we_R,
         w_address => w_address,
         r_address_1 => r_address,
-        r_address_ram => r_address_ram,
+        r_address_2 => r_address_ram,
         data_in => reg_in,
         data_out_1 => banco_out_1,
         data_out_2 => banco_out_2
