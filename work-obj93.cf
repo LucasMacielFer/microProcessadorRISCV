@@ -1,4 +1,5 @@
 v 4
+<<<<<<< HEAD
 file . "UC/Control_Unit.vhd" "498cb54735c3e668b2fbf6b0525d72ab8199bb45" "20250616234124.432":
   entity control_unit at 1( 0) + 0 on 415;
   architecture behavioral of control_unit at 22( 803) + 0 on 416;
@@ -44,3 +45,50 @@ file . "processador_tb.vhd" "c4419e8fa9a82ef5e922b30a8834bb1ced115255" "20250616
 file . "BancoRegs/banco_regs.vhd" "e7eeb859c377e452dfc94b5304956c0606359673" "20250616234124.205":
   entity banco_regs at 1( 0) + 0 on 401;
   architecture structural of banco_regs at 21( 620) + 0 on 402;
+=======
+file . "Memo/RAM.vhd" "2a0b6e9bb51aa05a4738740ed1bb8d1c5eeacdc6" "20250613191657.710":
+  entity ram at 1( 0) + 0 on 111;
+  architecture a_ram of ram at 15( 316) + 0 on 112;
+file . "processador.vhd" "0947f4c12633a65283cf2c9b2994132dd18096d3" "20250613191657.865":
+  entity processador at 1( 0) + 0 on 129;
+  architecture structural of processador at 15( 289) + 0 on 130;
+file . "ULA/reg1bit.vhd" "246e551a26695ab6214bd788e014567f01c0867c" "20250613191657.821":
+  entity reg1bit at 1( 0) + 0 on 125;
+  architecture behavioral of reg1bit at 17( 339) + 0 on 126;
+file . "State_Machine/Maq_estados.vhd" "99bbf9e57e9533b9230e0c9f57668969e7ba2536" "20250613191657.793":
+  entity maq_estados at 1( 0) + 0 on 121;
+  architecture a_maq_estados of maq_estados at 9( 183) + 0 on 122;
+file . "PC/somador7bit.vhd" "b9bf798d4739f6102f1e68f3baa1b9d35d8b1f91" "20250613191657.759":
+  entity somador7bit at 1( 0) + 0 on 117;
+  architecture comportamental of somador7bit at 15( 324) + 0 on 118;
+file . "PC/reg7bit.vhd" "c4b56636a84890976f6aa32ae54660827b488991" "20250613191657.726":
+  entity reg7bit at 1( 0) + 0 on 113;
+  architecture behavioral of reg7bit at 17( 361) + 0 on 114;
+file . "BancoRegs/reg14bit.vhd" "2f39326248a05582c9a977ce0889ec12217f1fae" "20250613191657.641":
+  entity reg14bit at 1( 0) + 0 on 103;
+  architecture behavioral of reg14bit at 17( 364) + 0 on 104;
+file . "BancoRegs/reg16bit.vhd" "1a323c091db94546c0919e348153c2c2e08f3613" "20250613191657.657":
+  entity reg16bit at 1( 0) + 0 on 105;
+  architecture behavioral of reg16bit at 17( 364) + 0 on 106;
+file . "Memo/ROM.vhd" "ea2f8d7c1452d023b3ebed6d1b2d65b087aa8f79" "20250613191657.693":
+  entity rom at 1( 0) + 0 on 109;
+  architecture behavioral of rom at 15( 294) + 0 on 110;
+file . "PC/soma1.vhd" "dd8dfc25914305a502cebf0056f610ffc8a82b72" "20250613191657.743":
+  entity soma1 at 1( 0) + 0 on 115;
+  architecture behavioral of soma1 at 14( 263) + 0 on 116;
+file . "State_Machine/one_shot_FF.vhd" "5c753e88b2409b7f4f038bd17b55e3c0abce5848" "20250613191657.777":
+  entity one_shot_ff at 1( 0) + 0 on 119;
+  architecture behavioral of one_shot_ff at 13( 218) + 0 on 120;
+file . "ULA/ULA.vhd" "d033cadd079ecb0c3c51ee1db59b20a6c9d1e4f1" "20250613191657.837":
+  entity ula at 1( 0) + 0 on 127;
+  architecture behavioral of ula at 23( 566) + 0 on 128;
+file . "processador_tb.vhd" "f79c6e1d0fc403f2924cf6d002d3238274120cf6" "20250613191657.881":
+  entity processador_tb at 1( 0) + 0 on 131;
+  architecture testbech of processador_tb at 8( 108) + 0 on 132;
+file . "BancoRegs/banco_regs.vhd" "0183b18c70ef3fcae4e65d2c51edd4ad4ffae49d" "20250613191657.676":
+  entity banco_regs at 1( 0) + 0 on 107;
+  architecture structural of banco_regs at 21( 600) + 0 on 108;
+file . "UC/Control_Unit.vhd" "923637d70a4847d8cee61031ae65063d6c5d9ee5" "20250613191657.810":
+  entity control_unit at 1( 0) + 0 on 123;
+  architecture behavioral of control_unit at 22( 782) + 0 on 124;
+>>>>>>> bdc54879302a911642c2c13d4c061fb90cd8e444
