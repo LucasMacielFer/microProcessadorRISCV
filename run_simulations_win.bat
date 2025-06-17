@@ -1,9 +1,3 @@
-Claro, aqui está o script convertido para o formato de arquivo em lote do Windows (.bat).
-
-Este script realiza as mesmas operações de limpeza, compilação, elaboração e simulação que o seu script shell, mas com a sintaxe correta para o Prompt de Comando do Windows.
-
-DOS
-
 @echo off
 :: Limpeza de compilações anteriores (opcional, mas recomendado para evitar resíduos)
 echo Limpando compilacoes anteriores...
@@ -23,6 +17,7 @@ ghdl -a BancoRegs/banco_regs.vhd
 
 :: -- Memo --
 ghdl -a Memo/ROM.vhd
+ghdl -a Memo/RAM.vhd
 
 :: -- PC --
 ghdl -a PC/reg7bit.vhd
