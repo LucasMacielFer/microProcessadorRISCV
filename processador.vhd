@@ -20,8 +20,8 @@ architecture structural of processador is
     signal PC_out, delta, RAM_addr                      : unsigned(6 downto 0);
     signal PC_in, sum_out                               : unsigned(6 downto 0);
     signal Reg_instruction, ROM_instruction             : unsigned(13 downto 0);
-    signal muxAdd, muxB                                 : std_logic;
-    signal muxA, imm_ctrl, muxR                         : std_logic_vector(1 downto 0);
+    signal muxB                                         : std_logic;
+    signal muxA, imm_ctrl, muxR, muxAdd                 : std_logic_vector(1 downto 0);
     signal we0_R, we0_A, we_R, we_A                     : std_logic;
     signal we_PC, we_inst_reg, r_addr_mux               : std_logic;
     signal operation                                    : std_logic_vector(2 downto 0);  
@@ -226,7 +226,7 @@ begin
     );
 
     reg_in      <= acum_out when muxR = "00" else immediate when muxR = "11" else RAM_out;
-    w_address   <= std_logic_vector(Reg_instruction(10 downto 7)) when muxAdd = '0' else std_logic_vector(Reg_instruction(7 downto 4));
+    w_address   <= std_logic_vector(Reg_instruction(10 downto 7)) when muxAdd = "00" else std_logic_vector(Reg_instruction(7 downto 4)) when muxAdd = "11" else std_logic_vector(Reg_instruction(13 downto 10));
     r_address   <= std_logic_vector(Reg_instruction(10 downto 7)) when r_addr_mux = '0' else std_logic_vector(Reg_instruction(13 downto 10));
     r_address_ram <= std_logic_vector(Reg_instruction(9 downto 6));
 

@@ -33,11 +33,11 @@ begin
             (op1 xor op2) when operation = "110" else           -- Ou exclusivo
             "00000000000000000";
 
-    op1 <= input_A(15) & input_A;
-    op2 <= (not (input_B(15) & input_B) + "00000000000000001") when operation = "010" else input_B(15) & input_B;
+    op1 <= '0' & input_A;
+    op2 <= '0' & (not input_B + "0000000000000001") when operation = "010" else input_B(15) & input_B;
 
     result <= calc(15 downto 0);
-    zero <= '1' when (calc = "000000000000000000") else '0';
+    zero <= '1' when (calc(15 downto 0) = "0000000000000000") else '0';
     negative <= calc(15);
     carry <= calc(16);
     overflow <=  (op1(15) and op2(15) and not calc(15)) or (not op1(15) and not op2(15) and calc(15));
